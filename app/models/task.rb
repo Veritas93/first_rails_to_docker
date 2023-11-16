@@ -5,33 +5,41 @@ class Task < ApplicationRecord
   validates :name, :description, :author, presence: true
   validates :description, length: { maximum: 500 }
 
-  state_machine initial: :new_task do
+  state_machine initial: :new_task  do
+    STATE_NEW_TASK = :new_task
+    STATE_IN_DEVELOPMENT = :in_development
+    STATE_IN_QA = :in_qa
+    STATE_IN_CODE_REVIEW = :in_code_review
+    STATE_READY_TO_RELEASE = :ready_to_release
+    STATE_RELEASED = :released
+    STATE_ARCHIVED = :archived
+
     event :start_develop do
-      transition new_task: :in_development
+      transition STATE_NEW_TASK => STATE_IN_DEVELOPMENT
     end
 
     event :start_test do
-      transition in_development: :in_qa
+      transition STATE_IN_DEVELOPMENT => STATE_IN_QA
     end
 
     event :return_to_development do
-      transition [:in_qa, :code_review] => :in_development
+      transition [STATE_IN_QA, STATE_IN_CODE_REVIEW] => STATE_IN_DEVELOPMENT
     end
 
     event :start_review do
-      transition in_qa: :code_review
+      transition STATE_IN_QA => STATE_IN_CODE_REVIEW
     end
 
     event :prepare_for_release do
-      transition code_review: :ready_to_release
+      transition STATE_IN_CODE_REVIEW => STATE_READY_TO_RELEASE
     end
 
     event :release do
-      transition ready_to_release: :released
+      transition STATE_READY_TO_RELEASE => STATE_RELEASED
     end
 
     event :archive do
-      transition [:new_task, :released] => :archived
+      transition [STATE_NEW_TASK, STATE_RELEASED] => STATE_ARCHIVED
     end
   end
 end
