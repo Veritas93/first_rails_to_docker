@@ -1,6 +1,7 @@
 class Admin::ApplicationController < ApplicationController
 	include AuthHelper
 	before_action :authenticate_user!, :authorize
+	helper_method :current_user
 
 	def authorize
 		render(:file => File.join(Rails.root,
