@@ -31,7 +31,7 @@ gem 'state_machines'
 gem 'state_machines-activerecord'
 gem 'slim-rails'
 
-# Block TDD 
+# Block TDD
 gem 'kaminari'
 gem 'ransack', '3.2.1'
 gem 'responders'
