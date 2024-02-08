@@ -9,7 +9,10 @@
 #admin = Admin.find_or_create_by(first_name: 'admin', last_name: 'admin', email: 'admin@localhost.localhost')
 #admin.password = 'admin'
 #admin.save
-FactoryBot.create(:admin)
+FactoryBot.create(:admin, first_name: 'admin', last_name: 'admin', email: 'admin@localhost.localhost', password: 'admin')
+#admin.first_name = "admin"
+#admin.last_name = "admin"
+#admin.email = "admin@localhost.localhost"
 
 60.times do |i|
 	u = [Manager, Developer].sample.new
