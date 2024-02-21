@@ -31,6 +31,12 @@ gem 'state_machines'
 gem 'state_machines-activerecord'
 gem 'slim-rails'
 
+# Block TDD
+gem 'kaminari'
+gem 'ransack', '3.2.1'
+gem 'responders'
+gem 'active_model_serializers'
+
 group :development, :test do
   gem 'factory_bot_rails'
   gem 'rubocop'
