@@ -31,6 +31,10 @@ gem 'state_machines'
 gem 'state_machines-activerecord'
 gem 'slim-rails'
 
+# TaskManager
+gem 'js-routes'
+gem 'react-rails'
+
 # Block TDD
 gem 'kaminari'
 gem 'ransack', '3.2.1'
