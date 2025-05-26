@@ -87,16 +87,16 @@ jobs:
   #     id-token: write
 
   deploy-uffizzi-preview:
-  name: Deploy Preview on Uffizzi
-  needs: render-compose-file
-  uses: UffizziCloud/preview-action@v2
-  with:
-    compose-file: docker-compose.rendered.yml
-    server: https://app.uffizzi.com/ 
-    project: ${{ secrets.UFFIZZI_PROJECT }}
-    username: ${{ secrets.UFFIZZI_USER }}
-    password: ${{ secrets.UFFIZZI_PASSWORD }}
-    logger-key: ${{ secrets.UFFIZZI_LOGGER_KEY }}
+    name: Deploy Preview on Uffizzi
+    needs: render-compose-file
+    uses: UffizziCloud/preview-action@v2
+    with:
+      compose-file: docker-compose.rendered.yml
+      server: https://app.uffizzi.com/ 
+      project: ${{ secrets.UFFIZZI_PROJECT }}
+      username: ${{ secrets.UFFIZZI_USER }}
+      password: ${{ secrets.UFFIZZI_PASSWORD }}
+      logger-key: ${{ secrets.UFFIZZI_LOGGER_KEY }}
       
   # delete-uffizzi-preview:
   #   name: Use Remote Workflow to Delete an Existing Preview
@@ -111,14 +111,14 @@ jobs:
   #     pull-requests: write
   #     id-token: write
   delete-uffizzi-preview:
-  name: Delete Preview on Uffizzi
-  if: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' }}
-  uses: UffizziCloud/preview-action@v2
-  with:
-    compose-file: docker-compose.rendered.yml
-    server: https://app.uffizzi.com/ 
-    project: ${{ secrets.UFFIZZI_PROJECT }}
-    username: ${{ secrets.UFFIZZI_USER }}
-    password: ${{ secrets.UFFIZZI_PASSWORD }}
-    logger-key: ${{ secrets.UFFIZZI_LOGGER_KEY }}
-    delete: true
+    name: Delete Preview on Uffizzi
+    if: ${{ github.event_name == 'pull_request' && github.event.action == 'closed' }}
+    uses: UffizziCloud/preview-action@v2
+    with:
+      compose-file: docker-compose.rendered.yml
+      server: https://app.uffizzi.com/ 
+      project: ${{ secrets.UFFIZZI_PROJECT }}
+      username: ${{ secrets.UFFIZZI_USER }}
+      password: ${{ secrets.UFFIZZI_PASSWORD }}
+      logger-key: ${{ secrets.UFFIZZI_LOGGER_KEY }}
+      delete: true
