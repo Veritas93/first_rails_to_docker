@@ -1,4 +1,5 @@
 name: Build Images and Deploy Preview Environment
+
 on:
   pull_request:
     types:
@@ -6,6 +7,7 @@ on:
       - reopened
       - synchronize
       - closed
+
 jobs:
   build-app:
     name: Build and Push `app`
@@ -32,6 +34,7 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           context: .
+
   render-compose-file:
     name: Render Docker Compose File
     runs-on: ubuntu-latest
@@ -66,31 +69,32 @@ jobs:
           cat docker-compose.rendered.yml
       - name: Hash Rendered Compose File
         id: hash
-        run: echo "::set-output name=hash::$(md5sum docker-compose.rendered.yml | awk '{
-          print $1 }')"
+        run: echo "::set-output name=hash::$(md5sum docker-compose.rendered.yml | awk '{print $1}')"
       - name: Cache Rendered Compose File
         uses: actions/cache@v3
         with:
           path: docker-compose.rendered.yml
           key: ${{ steps.hash.outputs.hash }}
+
   deploy-uffizzi-preview:
     name: Deploy Preview on Uffizzi
     needs: render-compose-file
     uses: UffizziCloud/preview-action@v2
     with:
       compose-file: docker-compose.rendered.yml
-      server: https://app.uffizzi.com/
+      server: https://app.uffizzi.com/ 
       project: ${{ secrets.UFFIZZI_PROJECT }}
       username: ${{ secrets.UFFIZZI_USER }}
       password: ${{ secrets.UFFIZZI_PASSWORD }}
       logger-key: ${{ secrets.UFFIZZI_LOGGER_KEY }}
+
   delete-uffizzi-preview:
     name: Delete Preview on Uffizzi
     if: ${{ github.event_name == 'pull_request' && github.event.action == 'closed'}}
     uses: UffizziCloud/preview-action@v2
     with:
       compose-file: docker-compose.rendered.yml
-      server: https://app.uffizzi.com/
+      server: https://app.uffizzi.com/ 
       project: ${{ secrets.UFFIZZI_PROJECT }}
       username: ${{ secrets.UFFIZZI_USER }}
       password: ${{ secrets.UFFIZZI_PASSWORD }}
