@@ -76,27 +76,33 @@ jobs:
           path: docker-compose.rendered.yml
           key: ${{ steps.hash.outputs.hash }}
 
-  deploy-uffizzi-preview:
+   deploy-uffizzi-preview:
     name: Deploy Preview on Uffizzi
     needs: render-compose-file
-    uses: UffizziCloud/preview-action@v2
-    with:
-      compose-file: docker-compose.rendered.yml
-      server: https://app.uffizzi.com/ 
-      project: ${{ secrets.UFFIZZI_PROJECT }}
-      username: ${{ secrets.UFFIZZI_USER }}
-      password: ${{ secrets.UFFIZZI_PASSWORD }}
-      logger-key: ${{ secrets.UFFIZZI_LOGGER_KEY }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy with Uffizzi CLI
+        uses: UffizziCloud/preview-action@v2
+        with:
+          compose-file: docker-compose.rendered.yml
+          server: https://app.uffizzi.com/ 
+          project: ${{ secrets.UFFIZZI_PROJECT }}
+          username: ${{ secrets.UFFIZZI_USER }}
+          password: ${{ secrets.UFFIZZI_PASSWORD }}
+          logger-key: ${{ secrets.UFFIZZI_LOGGER_KEY }}
 
   delete-uffizzi-preview:
     name: Delete Preview on Uffizzi
     if: ${{ github.event_name == 'pull_request' && github.event.action == 'closed'}}
-    uses: UffizziCloud/preview-action@v2
-    with:
-      compose-file: docker-compose.rendered.yml
-      server: https://app.uffizzi.com/ 
-      project: ${{ secrets.UFFIZZI_PROJECT }}
-      username: ${{ secrets.UFFIZZI_USER }}
-      password: ${{ secrets.UFFIZZI_PASSWORD }}
-      logger-key: ${{ secrets.UFFIZZI_LOGGER_KEY }}
-      delete: true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete preview with Uffizzi CLI
+        uses: UffizziCloud/preview-action@v2
+        with:
+          compose-file: docker-compose.rendered.yml
+          server: https://app.uffizzi.com/ 
+          project: ${{ secrets.UFFIZZI_PROJECT }}
+          username: ${{ secrets.UFFIZZI_USER }}
+          password: ${{ secrets.UFFIZZI_PASSWORD }}
+          logger-key: ${{ secrets.UFFIZZI_LOGGER_KEY }}
+          delete: true
