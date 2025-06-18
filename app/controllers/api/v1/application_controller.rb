@@ -2,7 +2,7 @@ class Api::V1::ApplicationController < Api::ApplicationController
   include AuthHelper
   helper_method :current_user
 
-  RANSACK_DEFAULT_SORT = 'id ASC'.freeze
+  RANSACK_DEFAULT_SORT = 'created_at DESC'.freeze
 
   def self.responder
     JsonResponder
@@ -19,7 +19,8 @@ class Api::V1::ApplicationController < Api::ApplicationController
   end
 
   def ransack_params
-    params.to_unsafe_h.fetch(:q, { s: RANSACK_DEFAULT_SORT })
+    q = params.to_unsafe_h.fetch(:q, {})
+    q = q.merge(s: RANSACK_DEFAULT_SORT) if q[:s].blank?
   end
 
   def page
