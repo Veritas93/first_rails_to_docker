@@ -1,4 +1,3 @@
 JsRoutes.setup do |config|
-    config.namespace = "Routes"
-    config.module_type = nil
+    config.module_type = "esm"
   end

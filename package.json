@@ -2,13 +2,7 @@
   "name": "task-manager",
   "private": true,
   "scripts": {
-    "lint": "node_modules/.bin/eslint app/javascript",
-    "migration": "docker-compose run --rm web rails db:create db:migrate",
-    "docker": "docker-compose up",
-    "Id docker container": "docker ps",
-    "test": "docker exec -it first_rails_to_docker-web-1 rails test",
-    "interactive docker": "docker exec -it first_rails_to_docker-web-1 /bin/bash",
-    "rubocop in Interactive docker": "bundle exec rubocop -a"
+    "lint": "node_modules/.bin/eslint app/javascript"
   },
   "dependencies": {
     "@asseinfo/react-kanban": "^2.2.0",
