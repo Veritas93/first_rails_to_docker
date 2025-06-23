@@ -8,6 +8,7 @@ import AddIcon from '@material-ui/icons/Add';
 import useStyles from './useStyles';
 import { AddPopup, ColumnHeader, Task, EditPopup } from 'components';
 import TaskForm from 'forms/TaskForm';
+import TaskPresenter from 'presenters/TaskPresenter';
 
 const STATES = [
   { key: 'new_task', value: 'New' },
@@ -46,7 +47,7 @@ const TaskBoard = () => {
   };
 
   const handleEditPopupOpen = (task) => {
-    setOpenedTaskId(task.id);
+    setOpenedTaskId(TaskPresenter.id(task));
     setMode(MODES.EDIT);
   };
 
@@ -116,7 +117,7 @@ const TaskBoard = () => {
       return null;
     }
 
-    return TasksRepository.update(task.id, { stateEvent: transition.event })
+    return TasksRepository.update(TaskPresenter.id(task), { stateEvent: transition.event })
       .then(() => {
         loadColumnInitial(destination.toColumnId);
         loadColumnInitial(source.fromColumnId);
@@ -130,14 +131,14 @@ const TaskBoard = () => {
   const handleTaskUpdate = (task) => {
     const attributes = TaskForm.attributesToSubmit(task);
 
-    return TasksRepository.update(task.id, attributes).then(() => {
+    return TasksRepository.update(TaskPresenter.id(task), attributes).then(() => {
       loadColumnInitial(task.state);
       handleClose();
     });
   };
 
   const handleTaskDestroy = (task) =>
-    TasksRepository.destroy(task.id).then(() => {
+    TasksRepository.destroy(TaskPresenter.id(task)).then(() => {
       loadColumnInitial(task.state);
       setOpenedTaskId(null);
       handleClose();
