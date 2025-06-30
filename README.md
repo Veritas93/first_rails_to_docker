@@ -3,6 +3,8 @@
 ### Build status (develop branch)
 [![Build Status](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Factions-badge.atrox.dev%2FVeritas93%2Ffirst_rails_to_docker%2Fbadge%3Fref%3Ddevelop&style=flat)](https://actions-badge.atrox.dev/Veritas93/first_rails_to_docker/goto?ref=develop)
 
+[![Coverage Status](https://coveralls.io/repos/github/Veritas93/first_rails_to_docker/badge.svg?branch=develop)](https://coveralls.io/github/Veritas93/first_rails_to_docker?branch=develop)
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
