@@ -8,11 +8,11 @@ import * as ActiveStorage from '@rails/activestorage';
 import 'channels';
 import 'material-design-lite/material.js';
 import WebpackerReact from 'webpacker-react';
-import TaskBoard from '../components/TaskBoard';
+import App from '../App';
 import Routes from 'routes';
 
 window.Routes = Routes;
 
-WebpackerReact.setup({ TaskBoard });
+WebpackerReact.setup({ App });
 Rails.start();
 ActiveStorage.start();
