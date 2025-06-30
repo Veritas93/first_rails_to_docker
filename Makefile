@@ -12,6 +12,10 @@ docker-up:
 docker-down:
 	docker-compose down
 
+# Запуск пересборки webpack
+docker-dev-webpack:
+	docker-compose exec web bin/webpack
+
 # Список запущенных контейнеров
 docker-ps:
 	docker ps

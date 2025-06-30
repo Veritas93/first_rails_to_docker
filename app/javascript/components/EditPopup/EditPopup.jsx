@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { isNil } from 'ramda';
-
 import Form from './Form';
 
 import useStyles from './useStyles';
@@ -97,11 +96,15 @@ const EditPopup = ({ cardId, onClose, onCardDestroy, onCardLoad, onCardUpdate })
 };
 
 EditPopup.propTypes = {
-  cardId: PropTypes.number.isRequired,
+  cardId: PropTypes.oneOfType([PropTypes.number]),
   onClose: PropTypes.func.isRequired,
   onCardDestroy: PropTypes.func.isRequired,
   onCardLoad: PropTypes.func.isRequired,
   onCardUpdate: PropTypes.func.isRequired,
+};
+
+EditPopup.defaultProps = {
+  cardId: null,
 };
 
 export default EditPopup;

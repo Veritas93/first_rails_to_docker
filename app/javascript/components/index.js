@@ -3,3 +3,4 @@ export { AddPopup } from './AddPopup';
 export { Task } from './Task';
 export { EditPopup } from './EditPopup';
 export { UserSelect } from './UserSelect';
+export { TaskBoard } from './TaskBoard';
